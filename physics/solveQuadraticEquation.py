@@ -6,6 +6,7 @@
 
 import sys
 import numpy as np
+import helper
 
 
 # check if right amount of arguments
@@ -18,16 +19,8 @@ try:
 except ValueError:
   raise NameError('Arguments could not be converted to numbers')
 
-print a
-print b
-print c
-
-d = (b**2 - 4*a*c)
-print d
-print 
-x1 = (-b + np.sqrt(d))/2
-x2 = (-b + np.sqrt(d))/2
+x = helper.solve2ndDegEq(a,b,c)
 
 # display nicely
 np.set_printoptions(precision=2)
-print np.array([x1, x2])
+print x
