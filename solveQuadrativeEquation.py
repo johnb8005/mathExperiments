@@ -1,5 +1,7 @@
 """
   solves 2nd degree equation
+  to solve: x^2 -x - 90 = 0
+  `python solveQuadrativeEquation.py 1 -1 -90`
 """
 
 import sys
