@@ -6,16 +6,7 @@ import numpy as np
 from scipy import constants
 import helper
 
-
-### constants ###
-
-# gravity
-g = constants.gravitational_constant
-
-### end constants ###
-
 ### initial conditions ###
-
 
 # initial position
 x0 = 0
@@ -25,14 +16,20 @@ s0 = (x0,y0)
 v0s = 12
 # angle 
 theta = np.pi/6 
+
 # define acceleration vector - acceleration is constant here
-a = np.array([0, -g])
+g = constants.physical_constants['standard acceleration of gravity'][0]
+a = np.array([0, -g ])
 
 ### end initial conditions ###
 
 
 # from initial condition get vector form of speed
 v0 = helper.polarToCartesian(np.array([v0s, theta]))
+
+print "vo"
+print v0
+
 
 
 print "a:  "+str(a)
@@ -47,7 +44,7 @@ print "s0: "+str(s0)
   @return v: speed
 """
 def v(t):
-  return a*t+v0
+  return a*t +v0
 
 
 """
@@ -106,6 +103,25 @@ sZeroHeight = s(tZeroHeight)
 
 print "Missile reaches floor at time "+str(tZeroHeight)+" and position "+str(sZeroHeight)
 
-print tFromX(6.3561497)
-print sfromX(6.3561497)
-print tFromY(126.83486239)
+#print tFromX(6.3561497)
+#print sfromX(6.3561497)
+#print tFromY(126.83486239)
+
+import matplotlib.pyplot as plt
+t = np.arange(0, tZeroHeight, .0002)
+t = t.reshape(len(t),-1).transpose().transpose()
+
+labels = ['x trajectory', 'y trajectory']
+
+print s(t)
+
+for y, label in zip(s(t).transpose(), labels):
+  plt.plot(t, y, label = label)
+
+plt.xlabel('time [s]')
+plt.ylabel('trajectory [m]')
+plt.legend()
+plt.savefig("ballistic.png")
+plt.show()
+
+#print s
