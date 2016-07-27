@@ -81,13 +81,18 @@ def extendedCoordinates(c1, c2):
 
 # main circle coorindates
 (cx,cy,cr) = (w/2,h/2,280)
+
+
+#addCircle((cx,cy), cr)
 # number of points around circle
-n = 1000
-# multiplicative factor
+n = 1200
+# muliplicative factor
+# # intersting number (n,m)
+# 100: 501, 999, 996, 59, 69, 499
+# # 1200: 501
 m = 501
 
-# intersting number (n,m)
-# 1000: 501, 999, 996, 59, 69, 499
+
 angles = np.linspace(0, 2*np.pi, n+1)
 
 #print angles
@@ -101,12 +106,10 @@ for (idx,angle) in enumerate(angles):
   #addLine(coords[idx], coords[idx2])
 
   c = extendedCoordinates(coords[idx], coords[idx2])
-
   addLine(c[0], c[1])
 
 
 # add surrounding circle
-#addCircle((cx,cy), cr)
 # draw small circles on circle - interesting for small `n`
 #for (idx,angle) in enumerate(angles):
 #  addCircle(coords[idx], 3)

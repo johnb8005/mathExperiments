@@ -12,7 +12,7 @@ re_min, re_max = -2.0, 2.0
 im_min, im_max = -2.0, 2.0
  
 # Pick a value for c
-c = complex(0.285,0.01) #complex(0.0,0.71)
+c =  complex(0.0,0.71) #complex(0.285,0.01)
  
 # Generate evenly spaced values over real and imaginary ranges
 real_range = numpy.arange(re_min, re_max, (re_max - re_min) / w)
