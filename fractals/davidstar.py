@@ -1,6 +1,5 @@
 """
-  Generate timetable
-  https://www.youtube.com/watch?v=qhbuKbxJsk8
+  David Star
 """
  
 import svgwrite
@@ -8,9 +7,9 @@ import numpy as np
 
 (h,w) = (700, 1500)
 
-svg = svgwrite.Drawing(filename = "timetable.svg", size = (str(w)+"px", str(h)+"px"))
+svg = svgwrite.Drawing(filename = "davidstar.svg", size = (str(w)+"px", str(h)+"px"))
 
-def coordFromAngle(alpha):
+def coordFromAngle(alpha, cr):
   x = cr*np.cos(alpha) + cx
   y = cr*np.sin(alpha) + cy
   return (x,y)
@@ -31,11 +30,11 @@ def addCircle(c, r):
 # calculate (x,y) coordinates for angles around circle
 # param n: number of points
 # param pts: list of points
-def calculateCoordinate(pts):
+def calculateCoordinate(pts, cr):
   n = len(pts)
   coords = np.empty([n,2])
   for (idx,angle) in enumerate(pts):
-    coords[idx] = coordFromAngle(angle)  
+    coords[idx] = coordFromAngle(angle, cr) 
   return coords
 
 
@@ -82,38 +81,37 @@ def extendedCoordinates(c1, c2):
 # main circle coorindates
 (cx,cy,cr) = (w/2,h/2,280)
 
-# add surrounding circle
-addCircle((cx,cy), cr)
 
-# number of points around circle
-n = 1200 #1200
-# muliplicative factor
-# # intersting number (n,m)
-# 100: 501, 999, 996, 59, 69, 499
-# # 1200: 501
-m = 59#999#501
-
-
-angles = np.linspace(0, 2*np.pi, n+1)
-
-#print angles
-
-# get coords for all points
-coords = calculateCoordinate(angles)
-
-for (idx,angle) in enumerate(angles):
-  idx2 = idx*m%n
-
-  #addLine(coords[idx], coords[idx2])
-
-  c = extendedCoordinates(coords[idx], coords[idx2])
-  addLine(c[0], c[1])
 
 
 
-# draw small circles on circle - interesting for small `n`
-#for (idx,angle) in enumerate(angles):
-#  addCircle(coords[idx], 3)
+# number of points around circle
+n = 6
+
+def printDavid(cr, m):
+
+  factor = 1/np.sqrt(3)**m
+  cr = factor*cr
+
+  
+  # add surrounding circle
+  #addCircle((cx,cy), cr)
+  angles = np.linspace(0, 2*np.pi, n+1)+np.pi/6*m
+  coords = calculateCoordinate(angles, cr)
+
+  # print points around circle
+  #for (idx,angle) in enumerate(coords):
+  #  addCircle(angle, 3)
+
+
+  for i in range(0,n):
+    addLine(coords[i], coords[(i+2)%n])
+
+
+
+
+for m in range(0,10):
+  printDavid(cr, m)
 
 
 svg.save()
