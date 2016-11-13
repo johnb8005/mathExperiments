@@ -86,7 +86,7 @@ def extendedCoordinates(c1, c2):
 
 
 # number of points around circle
-n = 6
+n = 9
 
 def printDavid(cr, m):
 
@@ -95,22 +95,19 @@ def printDavid(cr, m):
 
   
   # add surrounding circle
-  #addCircle((cx,cy), cr)
-  angles = np.linspace(0, 2*np.pi, n+1)+np.pi/6*m
+  addCircle((cx,cy), cr)
+  angles = np.linspace(0, 2*np.pi, n+1)+np.pi/n*m
   coords = calculateCoordinate(angles, cr)
 
   # print points around circle
   #for (idx,angle) in enumerate(coords):
   #  addCircle(angle, 3)
 
-
   for i in range(0,n):
     addLine(coords[i], coords[(i+2)%n])
 
 
-
-
-for m in range(0,10):
+for m in range(0,5):
   printDavid(cr, m)
 
 
